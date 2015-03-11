@@ -1,0 +1,56 @@
+﻿@model LinkDataExtractor.Models.TestModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Link data extractor v1.0</h1>
+    <p class="lead">LinkDataExtractor is a free API for extracting images and text from links like on facebook</p>
+    <p><a href="https://github.com/MikkelJR/" class="btn btn-primary btn-large" target="_blank">View on Github &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="page-header">Try it</h2>
+        @if (TempData["ShowResult"] == "true")
+        {
+            <div class="table-responsive">
+                <div class="well well-lg" id="test-result-container">
+                    <code id="test-result">
+                        @Html.Raw(TempData["Json"])
+                    </code>
+                </div>
+            </div>
+        }
+        
+        @using (Html.BeginForm())
+        {
+            <div class="form-group">
+                @Html.LabelFor(x => x.Url)
+                @Html.TextBoxFor(x => x.Url, new {@class = "form-control", @placeholder = "http://"})
+                @Html.ValidationMessageFor(x => x.Url)
+            </div>
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(x => x.Facebook)
+                    Include Facebook meta tags
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(x => x.Twitter)
+                    Include twitter meta tags
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(x => x.Manual)
+                    Include manual added tags
+                </label>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" id="test-button">Try it!</button>
+            </div>
+        }
+    </div>
+</div>
